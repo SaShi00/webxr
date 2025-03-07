@@ -1,0 +1,27 @@
+{
+  "name": "webxr",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host",
+    "server": "node src/server/server.js",
+    "start": "concurrently \"npm run dev\" \"npm run server\"",
+    "build:client": "vite build",
+    "build:server": "cp src/server/server.js dist/server.js",
+    "build": "npm run build:client && npm run build:server",
+    "preview": "vite preview --port 5173"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2",
+    "vite": "^6.0.5"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "lil-gui": "^0.20.0",
+    "socket.io": "^4.8.1",
+    "socket.io-client": "^4.8.1",
+    "three": "^0.173.0"
+  }
+}
