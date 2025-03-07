@@ -3,12 +3,18 @@ import http from 'http';
 import { Server } from 'socket.io';
 import cors from 'cors';
 import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
     cors: {
-        origin: '*', // Allow all origins (adjust for production)
+        origin: process.env.NODE_ENV === 'production' 
+            ? 'https://webxr-zen-verse.onrender.com' 
+            : '*',
         methods: ['GET', 'POST'],
     },
 });
@@ -16,12 +22,15 @@ const io = new Server(server, {
 app.use(cors());
 
 // Serve static files from the Vite build output
-const __dirname = path.resolve();
-app.use(express.static(path.join(__dirname, 'dist')));
+app.use(express.static(path.join(__dirname, '../')));
 
-// Catch-all route to serve index.html (for client-side routing)
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+// Handle specific routes for your pages
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, '../index.html'));
+});
+
+app.get('/virtualWorld', (req, res) => {
+  res.sendFile(path.join(__dirname, '../virtualWorld/main.html'));
 });
 
 // Dictionary to store avatar IDs and names
