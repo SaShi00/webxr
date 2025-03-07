@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite';
 import { resolve } from 'path';
 
-export default defineConfig({
+export default defineConfig(({ command, mode }) => ({
   root: resolve(__dirname, 'src/pages'),
   publicDir: resolve(__dirname, 'src/assets'),
   build: {
@@ -21,5 +21,11 @@ export default defineConfig({
         ws: true,
       },
     }
-  }
-})
+  },
+  preview: {
+    port: 5173,
+  },
+  define: {
+    'import.meta.env.MODE': JSON.stringify(mode),
+  },
+}));

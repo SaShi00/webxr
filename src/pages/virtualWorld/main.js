@@ -21,7 +21,7 @@ function getSocketURL() {
     return `${protocol}//${window.location.host}`;
   } else {
     // Production mode
-    return 'https://webxr-zen-verse.onrender.com'; // Replace with your actual production URL
+    return 'https://webxr-zen-verse.onrender.com/'; // Replace with your actual production URL
   }
 }
 
