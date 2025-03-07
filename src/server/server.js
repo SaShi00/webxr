@@ -2,17 +2,27 @@ import express from 'express';
 import http from 'http';
 import { Server } from 'socket.io';
 import cors from 'cors';
+import path from 'path';
 
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
     cors: {
-        origin: '*', // Allow requests from any origin
+        origin: '*', // Allow all origins (adjust for production)
         methods: ['GET', 'POST'],
     },
 });
 
 app.use(cors());
+
+// Serve static files from the Vite build output
+const __dirname = path.resolve();
+app.use(express.static(path.join(__dirname, 'dist')));
+
+// Catch-all route to serve index.html (for client-side routing)
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+});
 
 // Dictionary to store avatar IDs and names
 const avatarDictionary = {};
@@ -101,7 +111,6 @@ io.on('connection', (socket) => {
 });
 
 const PORT = process.env.PORT || 3000;
-
 server.listen(PORT, '0.0.0.0', () => {
-    console.log(`Server is running on port ${PORT}`);
+    console.log(`Server running on port ${PORT}`);
 });
