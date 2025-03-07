@@ -20,7 +20,13 @@ let avatar; // Declare globally to use in controls and VR setup
 const otherAvatars = {}; // Store other avatars
 let avatarCount = 0;
 
-const socket = io('http://localhost:3000');
+// const socket = io('http://localhost:3000');
+// Use environment variable or fallback for WebSocket URL
+const socket = io(process.env.SERVER_URL || 'http://localhost:3000', {
+    transports: ['websocket'], // Force WebSocket transport
+    secure: true,
+});
+
 
 // Initialize the chatbox
 initializeChatbox(socket);
