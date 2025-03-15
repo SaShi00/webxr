@@ -1,3 +1,4 @@
+// Import necessary modules
 import * as THREE from 'three';
 
 // Keyboard controls for non-VR mode
@@ -12,11 +13,11 @@ const movementSpeed = 0.05; // Adjust speed as needed
 const moveDirection = new THREE.Vector3();
 
 /**
- * Sets up keyboard event listeners for non-VR movement controls.
+ * Sets up keyboard and digital controller event listeners.
  * @param {Window} window - The global window object.
  */
 export function setupControls(window) {
-    // Add keydown event listener
+    // Keyboard event listeners
     window.addEventListener('keydown', (event) => {
         switch (event.code) {
             case 'ArrowUp': keyboard.forward = true; break;
@@ -26,7 +27,6 @@ export function setupControls(window) {
         }
     });
 
-    // Add keyup event listener
     window.addEventListener('keyup', (event) => {
         switch (event.code) {
             case 'ArrowUp': keyboard.forward = false; break;
@@ -35,10 +35,36 @@ export function setupControls(window) {
             case 'ArrowRight': keyboard.right = false; break;
         }
     });
+
+    // Digital controller event listeners
+    document.getElementById('up-arrow').addEventListener('touchstart', () => keyboard.forward = true, { passive: true });
+    document.getElementById('up-arrow').addEventListener('touchend', () => keyboard.forward = false, { passive: true });
+
+    document.getElementById('down-arrow').addEventListener('touchstart', () => keyboard.backward = true, { passive: true });
+    document.getElementById('down-arrow').addEventListener('touchend', () => keyboard.backward = false, { passive: true });
+
+    document.getElementById('left-arrow').addEventListener('touchstart', () => keyboard.left = true, { passive: true });
+    document.getElementById('left-arrow').addEventListener('touchend', () => keyboard.left = false, { passive: true });
+
+    document.getElementById('right-arrow').addEventListener('touchstart', () => keyboard.right = true, { passive: true });
+    document.getElementById('right-arrow').addEventListener('touchend', () => keyboard.right = false, { passive: true });
+
+    // Optional: Add mouse click support for desktop testing
+    document.getElementById('up-arrow').addEventListener('mousedown', () => keyboard.forward = true);
+    document.getElementById('up-arrow').addEventListener('mouseup', () => keyboard.forward = false);
+
+    document.getElementById('down-arrow').addEventListener('mousedown', () => keyboard.backward = true);
+    document.getElementById('down-arrow').addEventListener('mouseup', () => keyboard.backward = false);
+
+    document.getElementById('left-arrow').addEventListener('mousedown', () => keyboard.left = true);
+    document.getElementById('left-arrow').addEventListener('mouseup', () => keyboard.left = false);
+
+    document.getElementById('right-arrow').addEventListener('mousedown', () => keyboard.right = true);
+    document.getElementById('right-arrow').addEventListener('mouseup', () => keyboard.right = false);
 }
 
 /**
- * Updates the avatar's position based on keyboard input.
+ * Updates the avatar's position based on keyboard/digital controller input.
  * @param {THREE.Object3D} avatar - The avatar object to update.
  */
 export function updateAvatarMovement(avatar) {

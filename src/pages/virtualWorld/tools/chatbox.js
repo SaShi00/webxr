@@ -5,8 +5,8 @@ export function initializeChatbox(socket) {
     const chatboxContainer = document.createElement('div');
     chatboxContainer.id = 'chatbox-container';
     chatboxContainer.style.position = 'fixed';
-    chatboxContainer.style.bottom = '20px';
-    chatboxContainer.style.right = '20px';
+    chatboxContainer.style.top = '20px';
+    chatboxContainer.style.left = '20px';
     chatboxContainer.style.width = '300px';
     chatboxContainer.style.height = '250px';
     chatboxContainer.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
