@@ -2,36 +2,21 @@ import express from 'express';
 import http from 'http';
 import { Server } from 'socket.io';
 import cors from 'cors';
-import path from 'path';
-import { fileURLToPath } from 'url';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
     cors: {
-        origin: process.env.NODE_ENV === 'production' 
-            ? 'https://webxr-zen-verse.onrender.com' 
-            : '*',
+        origin: 'http://localhost:5173', // Allow requests from this origin
         methods: ['GET', 'POST'],
     },
 });
 
-app.use(cors());
-
-// Serve static files from the Vite build output
-app.use(express.static(path.join(__dirname, '../')));
-
-// Handle specific routes for your pages
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, '../index.html'));
-});
-
-app.get('/virtualWorld', (req, res) => {
-  res.sendFile(path.join(__dirname, '../virtualWorld/main.html'));
-});
+app.use(
+    cors({
+        origin: 'http://localhost:5173', // Allow requests from this origin
+    })
+);
 
 // Dictionary to store avatar IDs and names
 const avatarDictionary = {};
@@ -119,7 +104,6 @@ io.on('connection', (socket) => {
     });
 });
 
-const PORT = process.env.PORT || 3000;
-server.listen(PORT, '0.0.0.0', () => {
-    console.log(`Server running on port ${PORT}`);
+server.listen(3000, () => {
+    console.log('Server is running on http://localhost:3000');
 });
