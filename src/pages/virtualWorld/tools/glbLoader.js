@@ -10,7 +10,7 @@ export async function loadModels(scene, faceColor) {
         // Load Japan House
         house = await new Promise((resolve, reject) => {
             loader.load(
-                '/japanHouse.glb',
+                '../japanHouse.glb',
                 (gltf) => resolve(gltf.scene),
                 undefined,
                 (error) => reject(`Failed to load Japan House: ${error.message}`)
@@ -23,7 +23,7 @@ export async function loadModels(scene, faceColor) {
         // Load Avatar
         avatar = await new Promise((resolve, reject) => {
             loader.load(
-                '/avater.glb',
+                '../avater.glb',
                 (gltf) => resolve(gltf.scene),
                 undefined,
                 (error) => reject(`Failed to load Avatar: ${error.message}`)
@@ -94,7 +94,7 @@ export async function loadModels(scene, faceColor) {
 export function createAvatarModel(faceColor, avatarName = 'Player') {
     return new Promise((resolve, reject) => {
         loader.load(
-            '/avater.glb',
+            '../avater.glb',
             (gltf) => {
                 const avatarModel = gltf.scene;
 
