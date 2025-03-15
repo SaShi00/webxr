@@ -9,7 +9,7 @@ export function initializeChatbox(socket) {
     chatboxContainer.style.left = '20px';
     chatboxContainer.style.width = '300px';
     chatboxContainer.style.height = '250px';
-    chatboxContainer.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
+    chatboxContainer.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
     chatboxContainer.style.color = 'white';
     chatboxContainer.style.borderRadius = '10px';
     chatboxContainer.style.display = 'flex';
