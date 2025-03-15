@@ -20,7 +20,9 @@ let avatar; // Declare globally to use in controls and VR setup
 const otherAvatars = {}; // Store other avatars
 let avatarCount = 0;
 
-const socket = io('http://localhost:3000');
+// const socket = io('http://localhost:3000');
+const socket = io('https://webxr-mbvh.onrender.com/');
+
 
 // Initialize the chatbox
 initializeChatbox(socket);
